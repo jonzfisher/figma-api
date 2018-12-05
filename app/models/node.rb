@@ -17,5 +17,5 @@ class Node < Base
       instance:        "INSTANCE"
     ]
 
-  attr_accessor :id, :name, :visible  
+  attr_accessor :id, :name, :visible, :type  
 end
