@@ -7,7 +7,6 @@ class FigmaFilesController < ApplicationController
     @file = FigmaFile.find(params[:id])
     render json: @file
   end
-
   def nodes
     unless params.has_key?(:id)
       return render :json => {:error => "not-found"}.to_json, :status => 404
@@ -27,5 +26,16 @@ class FigmaFilesController < ApplicationController
     end
 
     render json: @nodes
+  end
+  
+  def search
+    unless params.has_key?(:id)
+      return render :json => {:error => "not-found"}.to_json, :status => 404
+    end
+    @nodes = FigmaFile.nodes(params[:id])
+    search = Search.new(sample_space: @nodes, value: params[:query])
+    search.save!
+    @results = search.results
+    render json: @results
   end
 end

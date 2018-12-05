@@ -32,4 +32,20 @@ RSpec.describe FigmaFilesController, type: :controller do
     end
   end
 
+  describe "GET #search" do
+    it "returns http success with params id" do
+      get :search, { params: { id: 'PAalkr4Lvt9nTEJTmFMphB' } }
+      expect(response).to have_http_status(:success)
+    end
+
+    it "returns a 404 without an id" do
+      get :search
+      expect(response).to have_http_status(:not_found)
+    end
+
+    it "returns only three hashes with query Doc" do
+      get :search, { params: { id: 'PAalkr4Lvt9nTEJTmFMphB', query: 'Doc' } }
+      expect( JSON.parse(response.body).size ).to eq 3
+    end
+  end
 end
