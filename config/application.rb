@@ -19,8 +19,7 @@ Bundler.require(*Rails.groups)
 
 module FigmaApi
   class Application < Rails::Application
-    config.autoload_paths += %W(#{config.root}/lib/figma)
-    config.eager_load_paths += Dir["#{config.root}/lib/figma"]
+    config.eager_load_paths << Rails.root.join('lib')
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
